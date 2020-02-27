@@ -9,7 +9,8 @@
 
 USE QACS
 GO
-										/* Displaying column names for all table*/
+										
+/* D */
 SELECT COLUMN_NAME AS 'CUSTOMER_COLUMN_NAMES'
 FROM INFORMATION_SCHEMA.COLUMNS
 WHERE TABLE_NAME = 'CUSTOMER';
@@ -37,15 +38,14 @@ WHERE TABLE_NAME = 'VENDOR';
 /********************************************************************************/
 
 										
-/* SQL statement to list ItemID and ItemDescription for all items that cost $1000 or more.*/
-
+/* E */
 SELECT ItemId, ItemDescription
 FROM ITEM
 WHERE ItemCost >= 1000;
 
 /*******************************/
 
-/* Listing ItemID and ItemDescription for all items that cost $1000 or more purchased from a vendor whose CompanyName starts with letters New.*/ 
+/* F */ 
 SELECT ItemID, ItemDescription, CompanyName AS 'Vendor_Company_Name'
 FROM ITEM INNER JOIN VENDOR
 	ON  ITEM.VendorID = VENDOR.VendorID
@@ -54,7 +54,7 @@ AND VENDOR.CompanyName LIKE 'New%'
 
 /*******************************/
 
-/* Listing LastName, FirstName, and Phone of the customer who made the purchase with SaleID 1 using a subquery*/
+/* G */
 SELECT LastName, FirstName, Phone
 FROM CUSTOMER
 WHERE CustomerID IN
@@ -64,7 +64,7 @@ WHERE CustomerID IN
 	
 /*******************************/
 
-/* Listing LastName, FirstName, and Phone of the customer who made the purchase with SaleID 1 using an inner join*/
+/* H */
 SELECT LastName, FirstName, Phone
 FROM CUSTOMER AS C INNER JOIN SALE AS S
   ON C.CustomerID  = S.CustomerID
@@ -72,7 +72,7 @@ FROM CUSTOMER AS C INNER JOIN SALE AS S
  
  /*******************************/
 
-/* LastName, FirstName, and Phone of the customers who made the purchases with SaleIDs 1, 2, and 3 using asubquery.*/
+/* I */
 SELECT LastName, FirstName, Phone  
 FROM CUSTOMER
 WHERE CustomerID IN   
@@ -82,7 +82,7 @@ WHERE CustomerID IN
   
 /*******************************/
 
-/*LastName, FirstName, and Phone of the customers who made the purchases with SaleIDs 1, 2, and 3 using an INNER JOIN. */
+/* J */
 SELECT LastName, FirstName, Phone
 FROM CUSTOMER AS C INNER JOIN SALE AS S
   ON C.CustomerID = S.CustomerID
@@ -90,8 +90,7 @@ WHERE S.SaleID IN (1,2,3);
 
 /*******************************/
 
-/* LastName, FirstName, and Phone of customers who have made at least one purchase with SubTotal greater 
-than $500. Use a subquery */
+/* K */
 
 SELECT CustomerID, LastName, FirstName, Phone 
 FROM CUSTOMER
@@ -99,10 +98,10 @@ WHERE CustomerID IN
   (SELECT CustomerID
    FROM SALE
    WHERE SubTotal > 500);
+
 /*******************************/
  
-/* LastName, FirstName, and Phone of customers who have made at least one purchase with SubTotal greater 
-than $500. Use a JOIN */
+/* L */
 
 SELECT C.CustomerID, LastName, FirstName, Phone
 FROM CUSTOMER AS C INNER JOIN SALE AS S
@@ -122,8 +121,7 @@ WHERE  CustomerID IN
 	  FROM SALE_ITEM
 	  WHERE ItemPrice > 500));
 
-	/* Use the CUSTOMER, SALE, AND SALE_ITEM tables. Refer to P.185.
-	For Inner Join on the three tables, refer to p. 191 */
+/*******************************/
 
 /* N */
 SELECT LastName, FirstName, Phone
@@ -134,9 +132,6 @@ FROM CUSTOMER AS C JOIN SALE AS S
 WHERE ItemPrice > 500;
 
 /*******************************/
-
-/* LastName, FirstName, and Phone of customers who have purchased an item that was supplied by a vendor with a 
-CompanyName that begins with the letter L. Use a subquery. */
 
 /* O */
 SELECT LastName, FirstName, Phone
@@ -155,8 +150,6 @@ WHERE CustomerID IN
 	   FROM VENDOR
 	   WHERE CompanyName LIKE 'L%'))));
 
-	/* Use the CUSTOMERS, SALE, */
-
 /*******************************/
 
 /*P*/
@@ -171,32 +164,47 @@ FROM CUSTOMER AS C JOIN SALE AS S
 	ON I.VendorID = V.VendorID
 	WHERE CompanyName LIKE 'L%';
 
+/*******************************/
+
 /* Q */
 /* Write SQL statement to show sum of SubTotal for each customer. List CustomerID, LastName. FirstName, Phone, and the calcualted result.
 Name the result as SumOfSubTotal and sort the results by CustomerID. in descending order */
 
-SELECT CustomerID, LastName, FirstName, Phone, SUM(SubTotal) AS SumOfSubTotal
+SELECT C.CustomerID, LastName, FirstName, Phone, SUM(SubTotal) AS SumOfSubTotal
 FROM CUSTOMER AS C JOIN SALE AS S
 	ON C.CustomerID = S.CustomerID
 GROUP BY C.CustomerID, LastName, FirstName, Phone
 ORDER BY C.CustomerID DESC;
+
+/*******************************/
 
 /*R */
 UPDATE VENDOR
  SET CompanyName = 'Linens and Other Stuff'
  WHERE CompanyName = 'Linens and Things';
 
+ /*******************************/
+
 /* S */
 UPDATE VENDOR
-SET CompanyName = 'Linens and Things'
+SET CompanyName = 'Temp'
 WHERE CompanyName = 'Lamps and Lighting';
+
+UPDATE VENDOR
+SET CompanyName = 'Lamps and Lighting'
+WHERE CompanyName = 'Linens and Things';
+
+UPDATE VENDOR
+SET CompanyName = 'Linens and Things'
+WHERE CompanyName = 'Temp';
+
+/*******************************/
 
 /* T */
 /* Given assumptions about cascading deletions, write the fewest number of DELETE statements possible to remove all data in database but leave table structure intact */
+TRUNCATE TABLE SALE_ITEM;
 TRUNCATE TABLE CUSTOMER;
-TRUNCATE TABLE EMPLOYEE;
 TRUNCATE TABLE VENDOR;
+TRUNCATE TABLE EMPLOYEE;
 TRUNCATE TABLE ITEM;
 TRUNCATE TABLE SALE;
-TRUNCATE TABLE SALE_ITEM;
-
