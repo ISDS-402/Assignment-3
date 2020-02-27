@@ -111,21 +111,6 @@ WHERE S.SubTotal > 500;
 
 /*******************************/
 
-/* Listing the LastName, FirstName, and Phone of customers who
-have purchased an item that has an ItemPrice of $500 or more. Use a subquery.*/ 
-
-	/* Use the CUSTOMER, SALE, AND SALE_ITEM tables. Refer to P.185.
-	For Inner Join on the three tables, refer to p. 191 */
-
-/*******************************/
-
-/* LastName, FirstName, and Phone of customers who have purchased an item that was supplied by a vendor with a 
-CompanyName that begins with the letter L. Use a subquery. */
-	
-	/* Use the CUSTOMERS, SALE, */
-
-/*******************************/
-
 /* M */
 SELECT LastName, FirstName, Phone
 FROM   CUSTOMER
