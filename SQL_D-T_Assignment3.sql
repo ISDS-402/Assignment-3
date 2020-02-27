@@ -191,10 +191,10 @@ FROM CUSTOMER AS C JOIN SALE AS S
 Name the result as SumOfSubTotal and sort the results by CustomerID. in descending order */
 
 SELECT CustomerID, LastName, FirstName, Phone, SUM(SubTotal) AS SumOfSubTotal
-FROM CUSTOMER, SALE
-	ON CUSTOMER.CustomerID = SALE.CustomerID
-GROUP BY CUSTOMER.CustomerID, LastName, FirstName, Phone
-ORDER BY CUSTOMER.CustomerID DESC;
+FROM CUSTOMER AS C JOIN SALE AS S
+	ON C.CustomerID = S.CustomerID
+GROUP BY C.CustomerID, LastName, FirstName, Phone
+ORDER BY C.CustomerID DESC;
 
 /*R */
 UPDATE VENDOR
