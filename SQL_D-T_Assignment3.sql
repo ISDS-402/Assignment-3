@@ -153,7 +153,7 @@ WHERE ItemPrice > 500;
 /* LastName, FirstName, and Phone of customers who have purchased an item that was supplied by a vendor with a 
 CompanyName that begins with the letter L. Use a subquery. */
 
-
+/* O */
 SELECT LastName, FirstName, Phone
 FROM CUSTOMER
 WHERE CustomerID IN
@@ -187,11 +187,31 @@ FROM CUSTOMER AS C JOIN SALE AS S
 	WHERE CompanyName LIKE 'L%';
 
 /* Q */
+/* Write SQL statement to show sum of SubTotal for each customer. List CustomerID, LastName. FirstName, Phone, and the calcualted result.
+Name the result as SumOfSubTotal and sort the results by CustomerID. in descending order */
+
+SELECT CustomerID, LastName, FirstName, Phone, SUM(SubTotal) AS SumOfSubTotal
+FROM CUSTOMER, SALE
+	ON CUSTOMER.CustomerID = SALE.CustomerID
+GROUP BY CUSTOMER.CustomerID, LastName, FirstName, Phone
+ORDER BY CUSTOMER.CustomerID DESC;
 
 /*R */
-SELECT
+UPDATE VENDOR
+ SET CompanyName = 'Linens and Other Stuff'
+ WHERE CompanyName = 'Linens and Things';
 
 /* S */
+UPDATE VENDOR
+SET CompanyName = 'Linens and Things'
+WHERE CompanyName = 'Lamps and Lighting';
 
 /* T */
+/* Given assumptions about cascading deletions, write the fewest number of DELETE statements possible to remove all data in database but leave table structure intact */
+TRUNCATE TABLE CUSTOMER;
+TRUNCATE TABLE EMPLOYEE;
+TRUNCATE TABLE VENDOR;
+TRUNCATE TABLE ITEM;
+TRUNCATE TABLE SALE;
+TRUNCATE TABLE SALE_ITEM;
 
