@@ -203,8 +203,9 @@ WHERE CompanyName = 'Temp';
 /* T */
 /* Given assumptions about cascading deletions, write the fewest number of DELETE statements possible to remove all data in database but leave table structure intact */
 TRUNCATE TABLE SALE_ITEM;
+TRUNCATE TABLE SALE;
 TRUNCATE TABLE CUSTOMER;
-TRUNCATE TABLE VENDOR;
 TRUNCATE TABLE EMPLOYEE;
 TRUNCATE TABLE ITEM;
-TRUNCATE TABLE SALE;
+TRUNCATE TABLE VENDOR;
+
