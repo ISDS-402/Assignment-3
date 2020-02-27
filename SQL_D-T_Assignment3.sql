@@ -175,7 +175,7 @@ WHERE CustomerID IN
 /*******************************/
 
 /*P*/
-SELECT DISTINCT LastName, FirstName, Phone
+SELECT DISTINCT LastName, FirstName, C.Phone
 FROM CUSTOMER AS C JOIN SALE AS S
 	ON C.CustomerID = S.SaleID
 	JOIN SALE_ITEM AS SI
