@@ -126,4 +126,72 @@ CompanyName that begins with the letter L. Use a subquery. */
 
 /*******************************/
 
+/* M */
+SELECT LastName, FirstName, Phone
+FROM   CUSTOMER
+WHERE  CustomerID IN
+	(SELECT CustomerID
+	 FROM SALE
+	 WHERE SaleID IN
+	 (SELECT SaleID
+	  FROM SALE_ITEM
+	  WHERE ItemPrice > 500));
+
+	/* Use the CUSTOMER, SALE, AND SALE_ITEM tables. Refer to P.185.
+	For Inner Join on the three tables, refer to p. 191 */
+
+/* N */
+SELECT LastName, FirstName, Phone
+FROM CUSTOMER AS C JOIN SALE AS S
+	ON C.CustomerID = S.SaleID
+	JOIN SALE_ITEM AS SI
+	ON S.SaleID = SI.SaleID
+WHERE ItemPrice > 500;
+
+/*******************************/
+
+/* LastName, FirstName, and Phone of customers who have purchased an item that was supplied by a vendor with a 
+CompanyName that begins with the letter L. Use a subquery. */
+
+
+SELECT LastName, FirstName, Phone
+FROM CUSTOMER
+WHERE CustomerID IN
+	(SELECT CustomerID
+	 FROM SALE
+	 WHERE SaleID IN
+	 (Select SaleID
+	 FROM SALE_ITEM
+	 WHERE ItemID IN
+	 (SELECT ItemID 
+	  FROM ITEM
+	  WHERE VendorID IN
+	  (SELECT VendorID 
+	   FROM VENDOR
+	   WHERE CompanyName LIKE 'L%'))));
+
+	/* Use the CUSTOMERS, SALE, */
+
+/*******************************/
+
+/*P*/
+SELECT DISTINCT LastName, FirstName, Phone
+FROM CUSTOMER AS C JOIN SALE AS S
+	ON C.CustomerID = S.SaleID
+	JOIN SALE_ITEM AS SI
+	ON S.SaleID = SI.SaleID
+	JOIN ITEM AS I
+	ON SI.ItemID = I.ItemID
+	JOIN VENDOR AS V
+	ON I.VendorID = V.VendorID
+	WHERE CompanyName LIKE 'L%';
+
+/* Q */
+
+/*R */
+SELECT
+
+/* S */
+
+/* T */
 
